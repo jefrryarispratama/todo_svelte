@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { Button } from '$lib/components/ui/button/index.js';
+	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import * as Field from '$lib/components/ui/field/index.js';
 	import { Input } from '$lib/components/ui/input';
+	import Textarea from '$lib/components/ui/textarea/textarea.svelte';
 	import { toast } from 'svelte-sonner';
 	let props = $props();
 	let isSubmitting = $state(false);
@@ -26,8 +27,15 @@
 >
 	<Field.Group>
 		<Field.Set>
-			<Field.Legend>Toodo</Field.Legend>
-			<Field.Description>Adding new todo using sveltekit...</Field.Description>
+			<div class="flex-col-2 flex items-center justify-between">
+				<div>
+					<Field.Legend>Toodo</Field.Legend>
+					<Field.Description>Adding new todo using sveltekit...</Field.Description>
+				</div>
+				<div>
+					<a href="/todos" class={`${buttonVariants({ variant: 'outline' })}`}>Lihat Todos</a>
+				</div>
+			</div>
 			<div>
 				{#if props.form?.error}
 					<p class="mb-4 text-sm font-medium text-red-500">{props.form.error}</p>
@@ -37,12 +45,12 @@
 			<Field.Group>
 				<Field.Field>
 					<Field.Label for="title">Title</Field.Label>
-					<Input type="text" id="title" name="title" />
+					<Input type="text" id="title" disabled={isSubmitting} name="title" />
 				</Field.Field>
 
 				<Field.Field>
 					<Field.Label for="description">description</Field.Label>
-					<Input type="text" name="description" />
+					<Textarea name="description" disabled={isSubmitting} />
 				</Field.Field>
 
 				<Field.Field orientation="horizontal">
