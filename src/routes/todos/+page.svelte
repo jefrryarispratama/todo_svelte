@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button, { buttonVariants } from '$lib/components/ui/button/button.svelte';
+	import { buttonVariants } from '$lib/components/ui/button/button.svelte';
 	import {
 		Card,
 		CardHeader,
@@ -7,6 +7,7 @@
 		CardDescription,
 		CardContent
 	} from '$lib/components/ui/card';
+	import DeleteTodo from '../../components/DeleteTodo.svelte';
 
 	let { data } = $props();
 </script>
@@ -17,8 +18,8 @@
 	<h1 class="mb-6 text-2xl font-bold tracking-tight">✨ My Todo</h1>
 
 	{#if data.todos.length === 0}
-		<Card class="border-dashed">
-			<CardContent class="flex flex-col items-center justify-center gap-2 p-10 text-gray-500">
+		<Card class="border  border-dashed">
+			<CardContent class="flex flex-col items-center justify-center gap-2  p-10 text-gray-500">
 				<span class="text-3xl">📝</span>
 				<p>Belum ada todo</p>
 			</CardContent>
@@ -29,7 +30,6 @@
 				<Card
 					class="group relative overflow-hidden rounded-xs transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
 				>
-					<!-- accent bar -->
 					<div
 						class="absolute top-0 left-0 h-full w-1 bg-primary opacity-60 group-hover:opacity-100"
 					></div>
@@ -49,8 +49,12 @@
 					</CardHeader>
 
 					<CardContent class="flex justify-end gap-2 opacity-0 transition group-hover:opacity-100">
-						<Button variant="secondary" class="bg-amber-100 hover:bg-amber-200">Edit</Button>
-						<Button variant="destructive">Delete</Button>
+						<a
+							href="todo/edit/{todo.id}"
+							class={`${buttonVariants({ variant: 'outline' })} bg-amber-100 hover:bg-amber-200`}
+							>Edit</a
+						>
+						<DeleteTodo todoId={todo.id} />
 					</CardContent>
 				</Card>
 			{/each}

@@ -27,5 +27,23 @@ export const actions: Actions = {
 			success: true,
 			message: 'Todo berhasil ditambah'
 		};
+	},
+	deleteTodo: async ({ request }) => {
+		const formData = await request.formData();
+		const id = formData.get('todoId') as string;
+
+		if (!id) {
+			return fail(400, { error: 'Id tidak ditemukan' });
+		}
+
+		try {
+			await prisma.todo.delete({
+				where: {
+					id: id
+				}
+			});
+		} catch {
+			return fail(500, { message: 'Gagal menghapus data ke database' });
+		}
 	}
 };
