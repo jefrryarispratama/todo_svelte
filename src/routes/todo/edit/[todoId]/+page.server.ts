@@ -1,5 +1,17 @@
-import { editTodoAction } from '$lib/actions/TodoAction';
+import { editTodoAction, getTodoById } from '$lib/actions/TodoAction';
 import { fail, type Actions } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async ({ params }) => {
+	const id = params.todoId;
+	const existingTodo = await getTodoById(id);
+	if (!existingTodo) {
+		throw fail(404, 'Todo tidak ditemukan');
+	}
+	return {
+		todo: existingTodo
+	};
+};
 
 export const actions: Actions = {
 	editTodo: async function name({ request }) {

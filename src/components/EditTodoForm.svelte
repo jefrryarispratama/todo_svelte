@@ -5,7 +5,7 @@
 	import { Input } from '$lib/components/ui/input';
 	import Textarea from '$lib/components/ui/textarea/textarea.svelte';
 	import { toast } from 'svelte-sonner';
-	let { todoId, form } = $props();
+	let { todo, form } = $props();
 	let isSubmitting = $state(false);
 </script>
 
@@ -31,7 +31,7 @@
 			<div class="flex-col-2 flex items-center justify-between">
 				<div>
 					<Field.Legend>Toodo</Field.Legend>
-					<Field.Description>Edit your existing todo</Field.Description>
+					<Field.Description>Edit data todo mu</Field.Description>
 				</div>
 				<a href="/todos" class={`${buttonVariants({ variant: 'outline' })}`}>kembali</a>
 			</div>
@@ -42,16 +42,16 @@
 			</div>
 
 			<Field.Group>
-				<Input type="hidden" id="todoId" disabled={isSubmitting} value={todoId} name="todoId" />
+				<Input type="hidden" id="todoId" disabled={isSubmitting} value={todo.id} name="todoId" />
 
 				<Field.Field>
 					<Field.Label for="title">Title</Field.Label>
-					<Input type="text" id="title" disabled={isSubmitting} name="title" />
+					<Input type="text" id="title" disabled={isSubmitting} value={todo.title} name="title" />
 				</Field.Field>
 
 				<Field.Field>
 					<Field.Label for="description">description</Field.Label>
-					<Textarea name="description" disabled={isSubmitting} />
+					<Textarea name="description" value={todo.description} disabled={isSubmitting} />
 				</Field.Field>
 
 				<Field.Field orientation="horizontal">

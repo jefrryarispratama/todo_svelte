@@ -1,5 +1,13 @@
 import prisma from '$lib/prisma';
 
+export async function getTodoById(id: string) {
+	return await prisma.todo.findUnique({
+		where: {
+			id
+		}
+	});
+}
+
 export async function createTodoAction(data: { title: string; description: string }) {
 	return await prisma.todo.create({
 		data: {
