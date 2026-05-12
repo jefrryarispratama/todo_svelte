@@ -15,18 +15,16 @@
 </script>
 
 <main class="mx-auto max-w-md p-6">
-	<a href="/" class={`${buttonVariants({ variant: 'outline' })} mb-6 inline-block`}> Kembali </a>
-
 	<div class="flex justify-between">
 		<h1 class="mb-6 text-2xl font-bold tracking-tight">✨ My Todo</h1>
 		<Tooltip.Root>
 			<a href="/">
-				<Tooltip.Trigger class={buttonVariants({ variant: 'outline' })}>
+				<Tooltip.Trigger class={`${buttonVariants({ variant: 'outline' })} cursor-pointer `}>
 					<SquarePen />
 				</Tooltip.Trigger>
 			</a>
 			<Tooltip.Content>
-				<p>Add to library</p>
+				<p>Tambah todo</p>
 			</Tooltip.Content>
 		</Tooltip.Root>
 	</div>

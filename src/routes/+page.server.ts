@@ -1,6 +1,6 @@
 import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
-import prisma from '$lib/prisma';
+import { createTodoAction, deleteTodoAction } from '$lib/actions/TodoAction';
 
 export const actions: Actions = {
 	createTodo: async ({ request }) => {
@@ -17,11 +17,9 @@ export const actions: Actions = {
 			});
 		}
 
-		await prisma.todo.create({
-			data: {
-				title,
-				description
-			}
+		await createTodoAction({
+			title,
+			description
 		});
 		return {
 			success: true,
@@ -37,11 +35,7 @@ export const actions: Actions = {
 		}
 
 		try {
-			await prisma.todo.delete({
-				where: {
-					id: id
-				}
-			});
+			await deleteTodoAction(id);
 		} catch {
 			return fail(500, { message: 'Gagal menghapus data ke database' });
 		}
