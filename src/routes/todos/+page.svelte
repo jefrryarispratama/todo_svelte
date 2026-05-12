@@ -9,6 +9,7 @@
 	} from '$lib/components/ui/card';
 	import DeleteTodo from '../../components/DeleteTodo.svelte';
 	import SquarePen from '@lucide/svelte/icons/square-pen';
+	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 
 	let { data } = $props();
 </script>
@@ -18,7 +19,16 @@
 
 	<div class="flex justify-between">
 		<h1 class="mb-6 text-2xl font-bold tracking-tight">✨ My Todo</h1>
-		<a href="/" class={buttonVariants({ variant: 'outline' })}><SquarePen /></a>
+		<Tooltip.Root>
+			<a href="/">
+				<Tooltip.Trigger class={buttonVariants({ variant: 'outline' })}>
+					<SquarePen />
+				</Tooltip.Trigger>
+			</a>
+			<Tooltip.Content>
+				<p>Add to library</p>
+			</Tooltip.Content>
+		</Tooltip.Root>
 	</div>
 
 	{#if data.todos.length === 0}
