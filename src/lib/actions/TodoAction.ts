@@ -9,7 +9,7 @@ export async function createTodoAction(data: { title: string; description: strin
 	});
 }
 
-export async function deleteTodoAction(id: string) {    
+export async function deleteTodoAction(id: string) {
 	return await prisma.todo.delete({
 		where: {
 			id

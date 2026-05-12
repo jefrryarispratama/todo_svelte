@@ -3,12 +3,12 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { toast } from 'svelte-sonner';
 
-	let { todoId } = $props();
+	let { todoId, action } = $props();
 </script>
 
 <form
 	method="POST"
-	action="/?/deleteTodo"
+	{action}
 	use:enhance={() => {
 		return async ({ result, update }) => {
 			if (result.type === 'failure') {
@@ -18,7 +18,7 @@
 			} else if (result.type === 'success') {
 				toast.success('Todo berhasil dihapus! ✨');
 			}
-			update(); // Memperbarui UI seketika
+			update();
 		};
 	}}
 >

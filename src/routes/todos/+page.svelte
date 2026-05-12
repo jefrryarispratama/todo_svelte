@@ -29,7 +29,7 @@
 		</Tooltip.Root>
 	</div>
 
-	{#if data.todos.length === 0}
+	{#if data.todos?.length === 0}
 		<Card class="border  border-dashed">
 			<CardContent class="flex flex-col items-center justify-center gap-2  p-10 text-gray-500">
 				<span class="text-3xl">📝</span>
@@ -66,7 +66,7 @@
 							class={`${buttonVariants({ variant: 'outline' })} bg-amber-100 hover:bg-amber-200`}
 							>Edit</a
 						>
-						<DeleteTodo todoId={todo.id} />
+						<DeleteTodo todoId={todo.id} action="/?/deleteTodo" />
 					</CardContent>
 				</Card>
 			{/each}

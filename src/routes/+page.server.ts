@@ -26,6 +26,7 @@ export const actions: Actions = {
 			message: 'Todo berhasil ditambah'
 		};
 	},
+	
 	deleteTodo: async ({ request }) => {
 		const formData = await request.formData();
 		const id = formData.get('todoId') as string;
