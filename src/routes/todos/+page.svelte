@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { buttonVariants } from '$lib/components/ui/button/button.svelte';
+	import Button, { buttonVariants } from '$lib/components/ui/button/button.svelte';
 	import {
 		Card,
 		CardHeader,
@@ -10,6 +10,8 @@
 	import DeleteTodo from '../../components/DeleteTodo.svelte';
 	import SquarePen from '@lucide/svelte/icons/square-pen';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
+	import Pagination from '../../components/Pagination.svelte';
+	import Input from '$lib/components/ui/input/input.svelte';
 
 	let { data } = $props();
 </script>
@@ -28,6 +30,21 @@
 			</Tooltip.Content>
 		</Tooltip.Root>
 	</div>
+
+	<form method="GET" class="mb-6 flex items-center gap-2">
+		<Input
+			type="text"
+			name="q"
+			placeholder="Cari todo..."
+			value={data.searchQuery}
+			class="rounded-none focus-visible:ring-black"
+		/>
+		<Button type="submit" class="rounded-none">Cari</Button>
+
+		{#if data.searchQuery}
+			<a href="/todos" class={`${buttonVariants({ variant: 'outline' })} rounded-none`}> Reset </a>
+		{/if}
+	</form>
 
 	{#if data.todos?.length === 0}
 		<Card class="border  border-dashed">
@@ -70,6 +87,10 @@
 					</CardContent>
 				</Card>
 			{/each}
+		</div>
+
+		<div class="mt-8 flex justify-center">
+			<Pagination currentPage={data.currentPage} totalPages={data.totalPages} />
 		</div>
 	{/if}
 </main>

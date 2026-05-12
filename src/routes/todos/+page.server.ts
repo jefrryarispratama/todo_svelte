@@ -1,16 +1,44 @@
+// src/routes/todos/+page.server.ts
 import prisma from '$lib/prisma';
-import type { PageServerLoad } from '../$types';
+import { error } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ url }) => {
 	try {
-		const todos = await prisma.todo.findMany({
-			orderBy: {
-				id: 'desc'
-			}
-		});
+		const page = Number(url.searchParams.get('page')) || 1;
 
-		return { todos };
+		const searchQuery = url.searchParams.get('q') || '';
+
+		const limit = 5;
+		const skip = (page - 1) * limit;
+
+		const whereCondition = searchQuery
+			? {
+					OR: [{ title: { contains: searchQuery } }, { description: { contains: searchQuery } }]
+				}
+			: {};
+
+		const [todos, totalCount] = await Promise.all([
+			prisma.todo.findMany({
+				where: whereCondition,
+				orderBy: { id: 'desc' },
+				take: limit,
+				skip: skip
+			}),
+			prisma.todo.count({
+				where: whereCondition
+			})
+		]);
+
+		const totalPages = Math.ceil(totalCount / limit);
+
+		return {
+			todos,
+			currentPage: page,
+			totalPages,
+			searchQuery
+		};
 	} catch {
-		return { success: false, message: 'gagal memanggil data' };
+		throw error(500, 'Gagal memanggil data dari database');
 	}
 };
