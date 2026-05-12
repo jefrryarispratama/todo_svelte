@@ -9,6 +9,16 @@ export async function createTodoAction(data: { title: string; description: strin
 	});
 }
 
+export async function editTodoAction(data: { id: string; title: string; description: string }) {
+	return await prisma.todo.update({
+		where: { id: data.id },
+		data: {
+			title: data.title,
+			description: data.description
+		}
+	});
+}
+
 export async function deleteTodoAction(id: string) {
 	return await prisma.todo.delete({
 		where: {

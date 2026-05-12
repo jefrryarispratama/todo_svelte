@@ -14,7 +14,7 @@
 	let { data } = $props();
 </script>
 
-<main class="mx-auto max-w-md p-6">
+<main class="mx-auto mt-4 max-w-md p-6">
 	<div class="flex justify-between">
 		<h1 class="mb-6 text-2xl font-bold tracking-tight">✨ My Todo</h1>
 		<Tooltip.Root>
