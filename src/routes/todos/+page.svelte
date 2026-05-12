@@ -8,6 +8,7 @@
 		CardContent
 	} from '$lib/components/ui/card';
 	import DeleteTodo from '../../components/DeleteTodo.svelte';
+	import SquarePen from '@lucide/svelte/icons/square-pen';
 
 	let { data } = $props();
 </script>
@@ -15,7 +16,10 @@
 <main class="mx-auto max-w-md p-6">
 	<a href="/" class={`${buttonVariants({ variant: 'outline' })} mb-6 inline-block`}> Kembali </a>
 
-	<h1 class="mb-6 text-2xl font-bold tracking-tight">✨ My Todo</h1>
+	<div class="flex justify-between">
+		<h1 class="mb-6 text-2xl font-bold tracking-tight">✨ My Todo</h1>
+		<a href="/" class={buttonVariants({ variant: 'outline' })}><SquarePen /></a>
+	</div>
 
 	{#if data.todos.length === 0}
 		<Card class="border  border-dashed">
