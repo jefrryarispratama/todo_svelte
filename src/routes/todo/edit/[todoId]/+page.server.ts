@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ params }) => {
 };
 
 export const actions: Actions = {
-	editTodo: async function name({ request }) {
+	editTodo: async ({ request }) => {
 		const formData = await request.formData();
 		const id = formData.get('todoId') as string;
 		const title = formData.get('title') as string;

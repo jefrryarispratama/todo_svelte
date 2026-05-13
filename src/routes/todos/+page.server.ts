@@ -1,7 +1,9 @@
 // src/routes/todos/+page.server.ts
 import prisma from '$lib/prisma';
-import { error } from '@sveltejs/kit';
+import { error, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
+import { deleteTodoAction } from '$lib/actions/TodoAction';
+import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ url }) => {
 	try {
@@ -40,5 +42,23 @@ export const load: PageServerLoad = async ({ url }) => {
 		};
 	} catch {
 		throw error(500, 'Gagal memanggil data dari database');
+	}
+};
+
+export const actions: Actions = {
+	deleteTodo: async ({ request }) => {
+		const formData = await request.formData();
+		const id = formData.get('todoId') as string;
+
+		if (!id) {
+			return fail(400, { message: 'Id tidak ditemukan' });
+		}
+
+		try {
+			await deleteTodoAction(id);
+			return { success: true };
+		} catch {
+			return fail(500, { message: 'Gagal menghapus data' });
+		}
 	}
 };

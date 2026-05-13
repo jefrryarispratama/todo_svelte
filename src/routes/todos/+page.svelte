@@ -14,6 +14,7 @@
 	import Input from '$lib/components/ui/input/input.svelte';
 
 	let { data } = $props();
+	import { page } from '$app/state';
 </script>
 
 <main class="mx-auto mt-4 max-w-md p-6">
@@ -51,6 +52,9 @@
 			<CardContent class="flex flex-col items-center justify-center gap-2  p-10 text-gray-500">
 				<span class="text-3xl">📝</span>
 				<p>Belum ada todo</p>
+				<p>
+					{page.error?.message}
+				</p>
 			</CardContent>
 		</Card>
 	{:else}
@@ -83,7 +87,7 @@
 							class={`${buttonVariants({ variant: 'outline' })} bg-amber-100 hover:bg-amber-200`}
 							>Edit</a
 						>
-						<DeleteTodo todoId={todo.id} action="/?/deleteTodo" />
+						<DeleteTodo todoId={todo.id} action="?/deleteTodo" />
 					</CardContent>
 				</Card>
 			{/each}

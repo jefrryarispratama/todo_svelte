@@ -1,6 +1,6 @@
 import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
-import { createTodoAction, deleteTodoAction, } from '$lib/actions/TodoAction';
+import { createTodoAction } from '$lib/actions/TodoAction';
 
 export const actions: Actions = {
 	createTodo: async ({ request }) => {
@@ -25,21 +25,5 @@ export const actions: Actions = {
 			success: true,
 			message: 'Todo berhasil ditambah'
 		};
-	},
-
-	
-	deleteTodo: async ({ request }) => {
-		const formData = await request.formData();
-		const id = formData.get('todoId') as string;
-
-		if (!id) {
-			return fail(400, { error: 'Id tidak ditemukan' });
-		}
-
-		try {
-			await deleteTodoAction(id);
-		} catch {
-			return fail(500, { message: 'Gagal menghapus data' });
-		}
 	}
 };
