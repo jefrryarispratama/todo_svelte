@@ -1,7 +1,4 @@
-<!-- src/components/Pagination.svelte -->
 <script lang="ts">
-	// Import buttonVariants dihapus karena tidak digunakan
-
 	let { currentPage, totalPages } = $props<{
 		currentPage: number;
 		totalPages: number;

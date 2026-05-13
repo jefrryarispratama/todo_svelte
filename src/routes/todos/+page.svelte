@@ -14,7 +14,6 @@
 	import Input from '$lib/components/ui/input/input.svelte';
 
 	let { data } = $props();
-	import { page } from '$app/state';
 </script>
 
 <main class="mx-auto mt-4 max-w-md p-6">
@@ -33,14 +32,8 @@
 	</div>
 
 	<form method="GET" class="mb-6 flex items-center gap-2">
-		<Input
-			type="text"
-			name="q"
-			placeholder="Cari todo..."
-			value={data.searchQuery}
-			class="rounded-none focus-visible:ring-black"
-		/>
-		<Button type="submit" class="rounded-none">Cari</Button>
+		<Input type="text" name="q" placeholder="Cari todo..." value={data.searchQuery} />
+		<Button type="submit" class="cursor-pointer">Cari</Button>
 
 		{#if data.searchQuery}
 			<a href="/todos" class={`${buttonVariants({ variant: 'outline' })} rounded-none`}> Reset </a>
@@ -52,9 +45,6 @@
 			<CardContent class="flex flex-col items-center justify-center gap-2  p-10 text-gray-500">
 				<span class="text-3xl">📝</span>
 				<p>Belum ada todo</p>
-				<p>
-					{page.error?.message}
-				</p>
 			</CardContent>
 		</Card>
 	{:else}
